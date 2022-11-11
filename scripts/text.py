@@ -25,7 +25,10 @@ def SeasonName(month_2, cuyear):
     else:
         year_title = str(cuyear)
 
-    return seasons_name[month_2-1] + ' - ' + year_title
+    if month_2 > 12:
+        return seasons_name[month_2 - 13] + ' - ' + year_title
+    else:
+        return seasons_name[month_2-1] + ' - ' + year_title
 
 ########################################################################################################################
 
