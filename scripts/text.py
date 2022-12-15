@@ -3,8 +3,8 @@ from datetime import datetime
 
 # Functions ############################################################################################################
 def MonthsName(cumonth, month, year):
-    months_name = ['Enero', 'Febrero', 'Marzo', ' Abril', ' Mayo', 'Junio',
-                   'Julio', 'Agosto', ' Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    months_name = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
     if (cumonth - month) < 0:
         year -= 1
@@ -71,39 +71,39 @@ month_3_name = MonthsName(cumonth, month_3, cuyear)
 season_year_name = SeasonName(month_2, cuyear)
 forecast_season_name = SeasonName(cumonth+2, cuyear).split()[0]
 
-fig = plt.figure(figsize=(1.5,0.4), dpi=200)
+fig = plt.figure(figsize=(1.5,0.4), dpi=500)
 plt.text(.0,.5, titledate, fontsize=15, color='Red', fontweight ='bold')
 plt.axis('off')
 plt.savefig('titledate.png')
 plt.close()
 
-fig = plt.figure(figsize=(1.5,0.8), dpi=200)
+fig = plt.figure(figsize=(1.5,0.8), dpi=500)
 plt.text(0,.3, month_1_name, fontsize=15, color='Red')
 plt.axis('off')
 plt.savefig('month-1_name.png')
 plt.close()
 
-fig = plt.figure(figsize=(1.5,0.8), dpi=200)
+fig = plt.figure(figsize=(1.5,0.8), dpi=500)
 plt.text(0,.3, month_2_name, fontsize=15, color='Red')
 plt.axis('off')
 plt.savefig('month-2_name.png')
 plt.close()
 
-fig = plt.figure(figsize=(1.5,0.8), dpi=200)
+fig = plt.figure(figsize=(1.5,0.8), dpi=500)
 plt.text(0,.3, month_3_name, fontsize=15, color='Red')
 plt.axis('off')
 plt.savefig('month-3_name.png')
 plt.close()
 
 
-fig = plt.figure(figsize=(1.7,0.7), dpi=200)
+fig = plt.figure(figsize=(1.7,0.7), dpi=500)
 plt.text(.0,.4, season_year_name, fontsize=15, color='Red')
 plt.axis('off')
 plt.savefig('season_year_name.png')
 plt.close()
 
 
-fig = plt.figure(figsize=(.8,.4), dpi=200)
+fig = plt.figure(figsize=(.8,.4), dpi=500)
 plt.text(0,.3, forecast_season_name, fontsize=20, fontweight ='bold')
 plt.axis('off')
 plt.savefig('forecast_season_name.png')

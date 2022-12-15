@@ -228,8 +228,8 @@ wget -O PronoENSO.png https://iri.columbia.edu/wp-content/uploads/$anio/$cumes/f
 wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/2022/$nxtmes/Probability/Prob_ENSO_Probability.png
 
 #Imagen Pluma ENSO (Mes actual puede no estar según en qué fecha se haga la presentación)
-wget -O Pluma_PronoENSO_MesActual.png https://iri.columbia.edu/wp-content/uploads/$anio/$cumes/figure4.png
-wget -O Pluma_PronoENSO_MesAnterior.png https://iri.columbia.edu/wp-content/uploads/$anio3/$mes3/figure4.png
+wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$cumes&year=$anio3
+wget -O Pluma_PronoENSO_MesAnterior.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3&year=$anio3
 
 #Imagen Prono IOD (fija)
 wget --no-cache -U "Mozilla" -O PronoIOD.png http://www.bom.gov.au/climate/enso/wrap-up/archive/${anio}${cumes}${martes}.sstOutlooks_iod.png
