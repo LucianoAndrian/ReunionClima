@@ -32,6 +32,8 @@ cumes=$(date -d "$date" +"%m")
 
 #next month
 nxtmes=$(date -d "$date +1 month" +"%m")
+#next year
+nxtanio=$(date -d "$date +1 month" +"%Y")
 
 # De https://stackoverflow.com/questions/36757864/how-to-get-the-latest-date-for-a-specific-day-of-the-week-in-bash
 # requires bash 4.x and GNU date
@@ -225,11 +227,15 @@ wget -O PronoENSO_Anterior.png https://iri.columbia.edu/wp-content/uploads/$anio
 wget -O PronoENSO.png https://iri.columbia.edu/wp-content/uploads/$anio/$cumes/figure1.png
 
 #Imagen Prono ENSO APEC (fija)
-wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/2022/$nxtmes/Probability/Prob_ENSO_Probability.png
+wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/2023/$nxtmes/Probability/Prob_ENSO_Probability.png
 
 #Imagen Pluma ENSO (Mes actual puede no estar según en qué fecha se haga la presentación)
-wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$cumes&year=$anio3
-wget -O Pluma_PronoENSO_MesAnterior.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3&year=$anio3
+# VAN CAMBIANDO LOS LINK SIN MOTIVO!
+# PARA Febrero 2023 funciona asi:
+#wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$cumes'&'year=$nxtanio
+wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=1'&'year=$nxtanio #por alguna razon month=1 en febrero...
+#wget -O Pluma_PronoENSO_MesAnterior.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3'&'year=$anio3
+wget -O Pluma_PronoENSO_MesAnterior.png https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/figure06.gif
 
 #Imagen Prono IOD (fija)
 wget --no-cache -U "Mozilla" -O PronoIOD.png http://www.bom.gov.au/climate/enso/wrap-up/archive/${anio}${cumes}${martes}.sstOutlooks_iod.png
@@ -248,17 +254,17 @@ season_iri_divar=$(python $enlace"pronos_update.py" --x "season")
 season_iri_divar_en=$(python $enlace"pronos_update.py" --x "season_en")
 mes_divar=$(python $enlace"pronos_update.py" --x "divar_month_ic")
 anio_i=$(python $enlace"pronos_update.py" --x "anio_i")
+anio_i_nmme=$(python $enlace"pronos_update.py" --x "anio_i_nmme")
 anio_f=$(python $enlace"pronos_update.py" --x "anio_f")
 anio_i_abrev=`expr $anio_i - 2000`
 anio_f_abrev=`expr $anio_f - 2000`
 
 ###################################################
 #Imagen Prono Precip NMME (¡¡¡Cambiar!!!)---> probando=FIJA
-wget -O Prono_Precip_NMME.png http://www.cpc.ncep.noaa.gov/products/international/nmme/probabilistic_seasonal/samerica_nmme_prec_3catprb_${mes_nmme}IC_${mes1_nmme}${anio_i}-${mes3_nmme}${anio_f}.png
+wget -O Prono_Precip_NMME.png http://www.cpc.ncep.noaa.gov/products/international/nmme/probabilistic_seasonal/samerica_nmme_prec_3catprb_${mes_nmme}IC_${mes1_nmme}${anio_i_nmme}-${mes3_nmme}${anio_f}.png
 
 #Imagen Prono Temp NMME (¡¡¡Cambiar!!!)---> probando=FIJA
-wget -O Prono_Temp_NMME.png http://www.cpc.ncep.noaa.gov/products/international/nmme/probabilistic_seasonal/samerica_nmme_tmp2m_3catprb_${mes_nmme}IC_${mes1_nmme}${anio_i}-${mes3_nmme}${anio_f}.png
-
+wget -O Prono_Temp_NMME.png http://www.cpc.ncep.noaa.gov/products/international/nmme/probabilistic_seasonal/samerica_nmme_tmp2m_3catprb_${mes_nmme}IC_${mes1_nmme}${anio_i_nmme}-${mes3_nmme}${anio_f}.png
 
 #Imagen Prono Precip IRI (¡¡¡Cambiar!!!)---> probando=FIJA
 wget -O Prono_Precip_IRI.gif https://iri.columbia.edu/climate/forecast/net_asmt_nmme/$anio_i/${mes_iri}${anio_i}/images/${season_iri_divar_en}${anio_f_abrev}_SAm_pcp.gif
@@ -273,10 +279,10 @@ wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for
 wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Temp_copernicus.png https://stream.ecmwf.int/data/gorax-green-000/data/scratch/20221017-1430/ec/convert_image-gorax-green-000-6fe5cac1a363ec1525f54343b6cc9fd8-YDoJop.png
+wget --no-cache -O Prono_Temp_copernicus.png https://stream.ecmwf.int/data/gorax-green-001/data/scratch/20230222-1230/bc/convert_image-gorax-green-001-6fe5cac1a363ec1525f54343b6cc9fd8-1reHCG.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Precip_copernicus.png https://stream.ecmwf.int/data/gorax-green-001/data/scratch/20221018-1250/77/convert_image-gorax-green-001-6fe5cac1a363ec1525f54343b6cc9fd8-1QlP1L.png
+wget --no-cache -O Prono_Precip_copernicus.png https://stream.ecmwf.int/data/gorax-green-002/data/scratch/20230221-1630/b6/convert_image-gorax-green-002-6fe5cac1a363ec1525f54343b6cc9fd8-LhDJSP.png
 
 # Flechita de ENSO (No es automático)
 # Sale de http://www.bom.gov.au/climate/enso/outlook/
@@ -290,9 +296,7 @@ cutycapt --url=https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_a
 convert ENSOstatusCPC.png -crop 580x260+380+150 ENSOstatusCPC.png
 
 # Flechita de ENSO (APEC Climate Center)
-wget -O enso_flechita_apec.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/2022/10/Alert/ENSO_Alert.png
-
-
+wget -O enso_flechita_apec.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$nxtanio/$nxtmes/Alert/ENSO_Alert.png
 
 rm tmp.pdf enso_evolution-status-fcsts-web.pdf
 

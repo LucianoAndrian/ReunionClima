@@ -16,12 +16,14 @@ def Output(x):
         mes3 = cumes + 3
     else:
         mes3 = cumes + 3 -12
+        mes1 = 1
 
     anio_i = datetime.now().year
     if mes3 < cumes:
         anio_f = datetime.now().year + 1
     else: 
         anio_f = anio_i
+
 
     if x== 'nmme_month_ic' or x == 'divar_month_ic':
         print(Months[cumes])
@@ -36,13 +38,16 @@ def Output(x):
             mes3=13
         print(seasons_name[mes3-1])
     elif (x == 'anio_i'):
-        print(anio_i)  
+        print(anio_i)
+    elif (x == 'anio_i_nmme'):
+        print(anio_i)
     elif (x == 'anio_f'):
         print(anio_f)
     elif (x == 'season_en'):
         if mes3 == 1:
             mes3=13
         print(seasons_name_en[mes3-1])
+
 
 
 def main():
