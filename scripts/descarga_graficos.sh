@@ -231,9 +231,9 @@ wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/202
 
 #Imagen Pluma ENSO (Mes actual puede no estar según en qué fecha se haga la presentación)
 # VAN CAMBIANDO LOS LINK SIN MOTIVO!
-# PARA Febrero 2023 funciona asi:
+# PARA Marzo 2023 funciona asi:
 #wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$cumes'&'year=$nxtanio
-wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=1'&'year=$nxtanio #por alguna razon month=1 en febrero...
+wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3'&'year=$nxtanio #va con el mes anterior al cumes
 #wget -O Pluma_PronoENSO_MesAnterior.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3'&'year=$anio3
 wget -O Pluma_PronoENSO_MesAnterior.png https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/figure06.gif
 
@@ -279,10 +279,10 @@ wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for
 wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Temp_copernicus.png https://stream.ecmwf.int/data/gorax-green-001/data/scratch/20230222-1230/bc/convert_image-gorax-green-001-6fe5cac1a363ec1525f54343b6cc9fd8-1reHCG.png
+wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20230321-1110/23/convert_image-worker-commands-74fc64594-5rbjh-6fe5cac1a363ec1525f54343b6cc9fd8-5FM6iG.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Precip_copernicus.png https://stream.ecmwf.int/data/gorax-green-002/data/scratch/20230221-1630/b6/convert_image-gorax-green-002-6fe5cac1a363ec1525f54343b6cc9fd8-LhDJSP.png
+wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20230321-1120/5d/convert_image-worker-commands-74fc64594-pdls7-6fe5cac1a363ec1525f54343b6cc9fd8-emkxFc.png
 
 # Flechita de ENSO (No es automático)
 # Sale de http://www.bom.gov.au/climate/enso/outlook/
