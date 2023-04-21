@@ -56,6 +56,7 @@ last_kday() {
 
 # Prono IOD 
 martes=$(last_kday tuesday)
+sabado=$(last_kday saturday)
 
 #Imagen SOI (fija)
 wget -O SOI.gif http://www.cpc.ncep.noaa.gov/products/CDB/Tropics/figt1.gif
@@ -231,16 +232,21 @@ wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/202
 
 #Imagen Pluma ENSO (Mes actual puede no estar según en qué fecha se haga la presentación)
 # VAN CAMBIANDO LOS LINK SIN MOTIVO!
-# PARA Marzo 2023 funciona asi:
+# PARA Abril 2023 funciona asi:
 #wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$cumes'&'year=$nxtanio
 wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3'&'year=$nxtanio #va con el mes anterior al cumes
 #wget -O Pluma_PronoENSO_MesAnterior.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3'&'year=$anio3
 wget -O Pluma_PronoENSO_MesAnterior.png https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/figure06.gif
 
 #Imagen Prono IOD (fija)
-wget --no-cache -U "Mozilla" -O PronoIOD.png http://www.bom.gov.au/climate/enso/wrap-up/archive/${anio}${cumes}${martes}.sstOutlooks_iod.png
-wget --no-cache -U "Mozilla" -O PronoIOD_NextMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${martes}.iod_summary_2.png
-wget --no-cache -U "Mozilla" -O PronoIOD_NextOtMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${martes}.iod_summary_3.png
+## PROBANDO ##
+# el prono de pluma se corre los sabados, la figura de barras se actualiza los martes
+# el codigo descarga las dos, probando si el ultimo sabado y martes funciona sino va a la semana anterior
+python $enlace"prono_IOD_bom.py" --x "${sabado}"
+
+#wget --no-cache -U "Mozilla" -O PronoIOD.png http://www.bom.gov.au/climate/enso/wrap-up/archive/${anio}${cumes}${martes}.sstOutlooks_iod.png
+#wget --no-cache -U "Mozilla" -O PronoIOD_NextMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${martes}.iod_summary_2.png
+#wget --no-cache -U "Mozilla" -O PronoIOD_NextOtMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${martes}.iod_summary_3.png
 wget -O PronoIOD_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Timeseries/sst_IOD.png
 
 
@@ -279,16 +285,16 @@ wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for
 wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20230321-1110/23/convert_image-worker-commands-74fc64594-5rbjh-6fe5cac1a363ec1525f54343b6cc9fd8-5FM6iG.png
+wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20230417-1540/b3/convert_image-worker-commands-74fc64594-s5n4s-6fe5cac1a363ec1525f54343b6cc9fd8-vj9tHp.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20230321-1120/5d/convert_image-worker-commands-74fc64594-pdls7-6fe5cac1a363ec1525f54343b6cc9fd8-emkxFc.png
+wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20230417-0730/0e/convert_image-worker-commands-74fc64594-qlndp-6fe5cac1a363ec1525f54343b6cc9fd8-OmUowJ.png
 
 # Flechita de ENSO (No es automático)
 # Sale de http://www.bom.gov.au/climate/enso/outlook/
 #cutycapt --url=http://www.bom.gov.au/climate/enso/outlook/ --out=enso_flechita.png --min-width=1200
 #convert enso_flechita.png -crop 240x159+323+316 enso_flechita.png
-wget -O enso_flechita.png -U 'Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' http://www.bom.gov.au/climate/enso/outlook/images/cg/la-nina.png
+wget -O enso_flechita.png -U 'Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' http://www.bom.gov.au/climate/enso/outlook/images/cg/el-nino-watch.png
 
 #Status ENSO de CPC
 # Sale de https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc_Sp.shtml
