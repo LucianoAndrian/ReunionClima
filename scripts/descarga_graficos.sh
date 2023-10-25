@@ -130,6 +130,24 @@ mv psi_plumb_01$mes2$anio2-${dfm2}$mes2$anio2.png Plumb_M2.png
 python $enlace"calculo_waf.py" --dateinit "$anio3-$mes3-01" --dateend "$anio3-$mes3-$dfm3"
 mv psi_plumb_01$mes3$anio3-${dfm3}$mes3$anio3.png Plumb_M3.png
 
+###########################################################################################################
+# "NUEVO" Octubre 2023: Flujos de Plumb con Z200 (fija)
+###########################################################################################################
+python $enlace"calculo_waf_z200.py" --dateinit "$anio1-$mes1-01" --dateend "$anio3-$mes3-$dfm3"
+mv Z_plumb_01$mes1$anio1-${dfm3}$mes3$anio3.png Z_Plumb_Trim.png
+
+python $enlace"calculo_waf_z200.py" --dateinit "$anio1-$mes1-01" --dateend "$anio1-$mes1-$dfm1"
+mv Z_plumb_01$mes1$anio1-${dfm1}$mes1$anio1.png Z_Plumb_M1.png
+
+python $enlace"calculo_waf_z200.py" --dateinit "$anio2-$mes2-01" --dateend "$anio2-$mes2-$dfm2"
+mv Z_plumb_01$mes2$anio2-${dfm2}$mes2$anio2.png Z_Plumb_M2.png
+
+python $enlace"calculo_waf_z200.py" --dateinit "$anio3-$mes3-01" --dateend "$anio3-$mes3-$dfm3"
+mv Z_plumb_01$mes3$anio3-${dfm3}$mes3$anio3.png Z_Plumb_M3.png
+###########################################################################################################
+###########################################################################################################
+###########################################################################################################
+
 #Imagen Anomalía Z500 yZ30 trimestral (fija)
 python $enlace"anom_var_stereo.py" --dateinit "$anio1-$mes1-01" --dateend "$anio3-$mes3-$dfm3" --variable "Zg" --level "500mb" --latr "-20" --levcont "120" --levint "30" 
 mv Anomhgt_500mb_01${mes1}${anio1}_${dfm3}${mes3}${anio3}_-20.jpg zg500_Trim.jpg
@@ -285,16 +303,16 @@ wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for
 wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20230417-1540/b3/convert_image-worker-commands-74fc64594-s5n4s-6fe5cac1a363ec1525f54343b6cc9fd8-vj9tHp.png
+wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20231017-1120/bf/ps2png-worker-commands-6f79cf895c-qblfn-6fe5cac1a363ec1525f54343b6cc9fd8-TC6IH1.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20230417-0730/0e/convert_image-worker-commands-74fc64594-qlndp-6fe5cac1a363ec1525f54343b6cc9fd8-OmUowJ.png
+wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20231017-0920/39/ps2png-worker-commands-6f79cf895c-4gznr-6fe5cac1a363ec1525f54343b6cc9fd8-D4qdMm.png
 
 # Flechita de ENSO (No es automático)
 # Sale de http://www.bom.gov.au/climate/enso/outlook/
 #cutycapt --url=http://www.bom.gov.au/climate/enso/outlook/ --out=enso_flechita.png --min-width=1200
 #convert enso_flechita.png -crop 240x159+323+316 enso_flechita.png
-wget -O enso_flechita.png -U 'Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' http://www.bom.gov.au/climate/enso/outlook/images/cg/el-nino-watch.png
+wget -O enso_flechita.png -U 'Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' http://www.bom.gov.au/climate/enso/outlook/images/cg/el-nino.png
 
 #Status ENSO de CPC
 # Sale de https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc_Sp.shtml

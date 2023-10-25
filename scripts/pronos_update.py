@@ -12,11 +12,14 @@ def Output(x):
     cumes = datetime.now().month
     if cumes != 12:
         mes1 = cumes +1
+    else:
+        mes1 = 1
+
     if cumes < 10:
         mes3 = cumes + 3
     else:
         mes3 = cumes + 3 -12
-        mes1 = 1
+
 
     anio_i = datetime.now().year
     if mes3 < cumes:
