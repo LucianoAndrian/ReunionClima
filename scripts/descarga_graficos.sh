@@ -303,10 +303,10 @@ wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for
 wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20231017-1120/bf/ps2png-worker-commands-6f79cf895c-qblfn-6fe5cac1a363ec1525f54343b6cc9fd8-TC6IH1.png
+wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20231117-0930/22/ps2png-worker-commands-76898cbbf-xfdn2-6fe5cac1a363ec1525f54343b6cc9fd8-vtBICf.png
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20231017-0920/39/ps2png-worker-commands-6f79cf895c-4gznr-6fe5cac1a363ec1525f54343b6cc9fd8-D4qdMm.png
+wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20231116-2230/2c/ps2png-worker-commands-76898cbbf-rqq8t-6fe5cac1a363ec1525f54343b6cc9fd8-W1Ygyc.png
 
 # Flechita de ENSO (No es automático)
 # Sale de http://www.bom.gov.au/climate/enso/outlook/
