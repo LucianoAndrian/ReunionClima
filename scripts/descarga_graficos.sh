@@ -61,8 +61,10 @@ sabado=$(last_kday saturday)
 #Imagen SOI (fija)
 wget -O SOI.gif http://www.cpc.ncep.noaa.gov/products/CDB/Tropics/figt1.gif
 
-#Imagen SOI zoom (fija)
-wget -U "Mozzila" -O SOI_zoom.png http://www.bom.gov.au/climate/enso/monitoring/soi30.png
+#Imagen SOI zoom (fija) # parece que cambio el link enero 2024. Pendiente corroborar que funcione
+#siempre el nuevo
+#wget -U "Mozzila" -O SOI_zoom.png http://www.bom.gov.au/climate/enso/monitoring/soi30.png
+wget -U "Mozzila" -O SOI_zoom.png http://www.bom.gov.au/clim_data/IDCKGSM000/soi30.png
 
 #Regiones SOI (fija)
 wget -O SOI_regiones.png https://www.climate.gov/sites/default/files/styles/inline_all/public/Fig1_ENSOindices_SOI_610.png
@@ -246,13 +248,13 @@ wget -O PronoENSO_Anterior.png https://iri.columbia.edu/wp-content/uploads/$anio
 wget -O PronoENSO.png https://iri.columbia.edu/wp-content/uploads/$anio/$cumes/figure1.png
 
 #Imagen Prono ENSO APEC (fija)
-wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/2023/$nxtmes/Probability/Prob_ENSO_Probability.png
+wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Probability/Prob_ENSO_Probability.png
 
 #Imagen Pluma ENSO (Mes actual puede no estar según en qué fecha se haga la presentación)
 # VAN CAMBIANDO LOS LINK SIN MOTIVO!
 # PARA Abril 2023 funciona asi:
 #wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$cumes'&'year=$nxtanio
-wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3'&'year=$nxtanio #va con el mes anterior al cumes
+wget -O Pluma_PronoENSO_MesActual.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes1'&'year=$nxtanio #va con el mes anterior al cumes
 #wget -O Pluma_PronoENSO_MesAnterior.png https://ensoforecast.iri.columbia.edu/cgi-bin/sst_table_img?month=$mes3'&'year=$anio3
 wget -O Pluma_PronoENSO_MesAnterior.png https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/figure06.gif
 
@@ -302,11 +304,14 @@ wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for
 #Imagen Prono DIVAR (¡¡¡Cambiar!!!)---> probando=FIJA
 wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
-#prono copernicus (Cambiar)
-wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20231117-0930/22/ps2png-worker-commands-76898cbbf-xfdn2-6fe5cac1a363ec1525f54343b6cc9fd8-vtBICf.png
+# TEST DESCARGA AUTOMATICA COPERNICUS
+python $enlace"download_copernicus_forecast.py" --mes "$cumes" --anio "$anio" --nxtanio "$nxtanio"
 
 #prono copernicus (Cambiar)
-wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20231116-2230/2c/ps2png-worker-commands-76898cbbf-rqq8t-6fe5cac1a363ec1525f54343b6cc9fd8-W1Ygyc.png
+#wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20231117-0930/22/ps2png-worker-commands-76898cbbf-xfdn2-6fe5cac1a363ec1525f54343b6cc9fd8-vtBICf.png
+
+#prono copernicus (Cambiar)
+#wget --no-cache -O Prono_Precip_copernicus.png https://charts.ecmwf.int/streaming/20231116-2230/2c/ps2png-worker-commands-76898cbbf-rqq8t-6fe5cac1a363ec1525f54343b6cc9fd8-W1Ygyc.png
 
 # Flechita de ENSO (No es automático)
 # Sale de http://www.bom.gov.au/climate/enso/outlook/
