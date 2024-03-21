@@ -13,6 +13,7 @@ conda activate py37
 enlace=./scripts/
 
 python $enlace"text.py"
+python $enlace"apec_download.py"
 
 anio=$(date -d "$date" +"%Y")
 mes1=$(date -d "$date -3 month" +"%m")
@@ -118,6 +119,8 @@ wget -O OLR_M3.gif http://www.cpc.ncep.noaa.gov/products/CDB/CDB_Archive_html/bu
 
 #Imagen IOD (fija) NO ESTÁ FUNCIONANDO BIEN
 wget --no-cache -U "Mozilla" -O IOD.png http://www.bom.gov.au/climate/enso/monitoring/iod1.png
+# en febrero 2024 http://www.bom.gov.au/clim_data/IDCK000072/iod1.png
+# El otro link sigue andando pero tiene un grafico viejo
 
 #Flujos de Plumb  (fija)
 python $enlace"calculo_waf.py" --dateinit "$anio1-$mes1-01" --dateend "$anio3-$mes3-$dfm3"
@@ -248,7 +251,7 @@ wget -O PronoENSO_Anterior.png https://iri.columbia.edu/wp-content/uploads/$anio
 wget -O PronoENSO.png https://iri.columbia.edu/wp-content/uploads/$anio/$cumes/figure1.png
 
 #Imagen Prono ENSO APEC (fija)
-wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Probability/Prob_ENSO_Probability.png
+#wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Probability/Prob_ENSO_Probability.png
 
 #Imagen Pluma ENSO (Mes actual puede no estar según en qué fecha se haga la presentación)
 # VAN CAMBIANDO LOS LINK SIN MOTIVO!
@@ -267,7 +270,7 @@ python $enlace"prono_IOD_bom.py" --x "${sabado}"
 #wget --no-cache -U "Mozilla" -O PronoIOD.png http://www.bom.gov.au/climate/enso/wrap-up/archive/${anio}${cumes}${martes}.sstOutlooks_iod.png
 #wget --no-cache -U "Mozilla" -O PronoIOD_NextMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${martes}.iod_summary_2.png
 #wget --no-cache -U "Mozilla" -O PronoIOD_NextOtMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${martes}.iod_summary_3.png
-wget -O PronoIOD_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Timeseries/sst_IOD.png
+#wget -O PronoIOD_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Timeseries/sst_IOD.png
 
 
 #################### PROBANDO #####################
@@ -305,7 +308,7 @@ wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for
 wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
 # TEST DESCARGA AUTOMATICA COPERNICUS
-python $enlace"download_copernicus_forecast.py" --mes "$cumes" --anio "$anio" --nxtanio "$nxtanio"
+python $enlace"test_download_copernicus_forecast.py" --mes "$cumes" --anio "$anio" --nxtanio "$nxtanio"
 
 #prono copernicus (Cambiar)
 #wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20231117-0930/22/ps2png-worker-commands-76898cbbf-xfdn2-6fe5cac1a363ec1525f54343b6cc9fd8-vtBICf.png
@@ -325,7 +328,7 @@ cutycapt --url=https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_a
 convert ENSOstatusCPC.png -crop 580x260+380+150 ENSOstatusCPC.png
 
 # Flechita de ENSO (APEC Climate Center)
-wget -O enso_flechita_apec.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$nxtanio/$nxtmes/Alert/ENSO_Alert.png
+#wget -O enso_flechita_apec.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$nxtanio/$nxtmes/Alert/ENSO_Alert.png
 
 rm tmp.pdf enso_evolution-status-fcsts-web.pdf
 

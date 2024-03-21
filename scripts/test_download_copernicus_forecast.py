@@ -26,14 +26,16 @@ def download(mes, anio, nxtanio):
                          'products/c3s_seasonal_spatial_mm_2mtm_3m/'
                          '?valid_time=' + nxtanio + '-'+ nxtmes +
                              '-01T00%3A00%3A00Z&base_time=' + anio + '-' + mes +
-                             '-01T00%3A00%3A00Z&area=area13')
-
-    data_dict = json.loads(data_html.data)
-    enlace = data_dict['data']['link']['href']
-
-    print('Descargando Prono_Temp_copernicus.png')
-    os.system('wget --no-cache -O Prono_Temp_copernicus.png ' + enlace)
-
+                             '-01T00%3A00%3A00Z&area=area13' )
+    try:
+        data_dict = json.loads(data_html.data)
+        enlace = data_dict['data']['link']['href']
+        print('Descargando Prono_Temp_copernicus.png')
+        os.system('wget --no-cache -O Prono_Temp_copernicus.png ' + enlace)
+    except:
+        print('# ---------------------------- #')
+        print('Error Link copernicus NO FUNCA')
+        print('# ---------------------------- #')
 
     # precipitacion ---------------------------------------------------------- #
     data_html = http.request('GET',
@@ -43,11 +45,15 @@ def download(mes, anio, nxtanio):
                              '-01T00%3A00%3A00Z&base_time=' + anio + '-' + mes +
                              '-01T00%3A00%3A00Z&area=area13')
 
-    data_dict = json.loads(data_html.data)
-    enlace = data_dict['data']['link']['href']
-
-    print('Descargando Prono_Precip_copernicus.png')
-    os.system('wget --no-cache -O Prono_Precip_copernicus.png ' + enlace)
+    try:
+        data_dict = json.loads(data_html.data)
+        enlace = data_dict['data']['link']['href']
+        print('Descargando Prono_Precip_copernicus.png')
+        os.system('wget --no-cache -O Prono_Precip_copernicus.png ' + enlace)
+    except:
+        print('# ---------------------------- #')
+        print('Error Link copernicus NO FUNCA')
+        print('# ---------------------------- #')
 
 # ---------------------------------------------------------------------------- #
 # ---------------------------------------------------------------------------- #

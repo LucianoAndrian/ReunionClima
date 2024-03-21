@@ -33,29 +33,29 @@ def clean():   #clean enviroment
 # In[]      Downloads netcdf from esrl    
 def descarga_nc( mesi, diai, mesf, diaf, aniof, variable_entrada, variable_salida, tipo):
     #tipo controls type of data: 2 for anomalies, 3 for climatology
-    # Open NCEP NCAR to access to lik to data
-        url = 'http://www.psl.noaa.gov/cgi-bin/data/composites/comp.day.pl?var='+variable_entrada+'&level=.2101+sigma&iy[1]=&im[1]=&id[1]=&iy[2]=&im[2]=&id[2]=&iy[3]=&im[3]=&id[3]=&iy[4]=&im[4]=&id[4]=&iy[5]=&im[5]=&id[5]=&iy[6]=&im[6]=&id[6]=&iy[7]=&im[7]=&id[7]=&iy[8]=&im[8]=&id[8]=&iy[9]=&im[9]=&id[9]=&iy[10]=&im[10]=&id[10]=&iy[11]=&im[11]=&id[11]=&iy[12]=&im[12]=&id[12]=&iy[13]=&im[13]=&id[13]=&iy[14]=&im[14]=&id[14]=&iy[15]=&im[15]=&id[15]=&iy[16]=&im[16]=&id[16]=&iy[17]=&im[17]=&id[17]=&iy[18]=&im[18]=&id[18]=&iy[19]=&im[19]=&id[19]=&iy[20]=&im[20]=&id[20]=&monr1='+str(mesi)+'&dayr1='+str(diai)+'&monr2='+str(mesf)+'&dayr2='+str(diaf)+'&iyr[1]='+str(aniof)+'&filenamein=&plotlabel=&lag=0&labelc=Color&labels=Shaded&type='+str(tipo)+'&scale=&label=0&cint=&lowr=&highr=&istate=0&proj=ALL&xlat1=&xlat2=&xlon1=&xlon2=&custproj=Cylindrical+Equidistant&level1=1000mb&level2=10mb&Submit=Create+Plot'
-        
-        response = urllib.request.urlopen(url)
-        
-        data = response.read()      # a `bytes` object
 
-        soup = BeautifulSoup(data,'html.parser') #is an xml, beautifull has a module to manage it
+    if tipo==3 and mesf==2 and diaf == 29:
+        diaf=28 # no hay climatologia con febrero bisiesto
+
+    # Open NCEP NCAR to access to lik to data
+    url = 'http://www.psl.noaa.gov/cgi-bin/data/composites/comp.day.pl?var='+variable_entrada+'&level=.2101+sigma&iy[1]=&im[1]=&id[1]=&iy[2]=&im[2]=&id[2]=&iy[3]=&im[3]=&id[3]=&iy[4]=&im[4]=&id[4]=&iy[5]=&im[5]=&id[5]=&iy[6]=&im[6]=&id[6]=&iy[7]=&im[7]=&id[7]=&iy[8]=&im[8]=&id[8]=&iy[9]=&im[9]=&id[9]=&iy[10]=&im[10]=&id[10]=&iy[11]=&im[11]=&id[11]=&iy[12]=&im[12]=&id[12]=&iy[13]=&im[13]=&id[13]=&iy[14]=&im[14]=&id[14]=&iy[15]=&im[15]=&id[15]=&iy[16]=&im[16]=&id[16]=&iy[17]=&im[17]=&id[17]=&iy[18]=&im[18]=&id[18]=&iy[19]=&im[19]=&id[19]=&iy[20]=&im[20]=&id[20]=&monr1='+str(mesi)+'&dayr1='+str(diai)+'&monr2='+str(mesf)+'&dayr2='+str(diaf)+'&iyr[1]='+str(aniof)+'&filenamein=&plotlabel=&lag=0&labelc=Color&labels=Shaded&type='+str(tipo)+'&scale=&label=0&cint=&lowr=&highr=&istate=0&proj=ALL&xlat1=&xlat2=&xlon1=&xlon2=&custproj=Cylindrical+Equidistant&level1=1000mb&level2=10mb&Submit=Create+Plot'
+    response = urllib.request.urlopen(url)
+    data = response.read()      # a `bytes` object
+    soup = BeautifulSoup(data,'html.parser') #is an xml, beautifull has a module to manage it
+    link = soup.findAll('img')[-1]['src']
         
-        link = soup.findAll('img')[-1]['src']
+    #A very inefficient way to get the nc file
+    link=list(link)
+    link[-3]='n'
+    link[-2]='c'
+    link[-1]=''
         
-        #A very inefficient way to get the nc file
-        link=list(link)
-        link[-3]='n'
-        link[-2]='c'
-        link[-1]=''
-        
-        #get nc file save as netcdf
-        ruta = "./tmp/"
-        if not os.path.exists(ruta):
-            os.mkdir(ruta)
-        print('http://www.psl.noaa.gov'+"".join(link), ruta+variable_salida+'.nc')
-        urllib.request.urlretrieve('http://www.psl.noaa.gov'+"".join(link), ruta+variable_salida+'.nc')
+    #get nc file save as netcdf
+    ruta = "./tmp/"
+    if not os.path.exists(ruta):
+        os.mkdir(ruta)
+    print('http://www.psl.noaa.gov'+"".join(link), ruta+variable_salida+'.nc')
+    urllib.request.urlretrieve('http://www.psl.noaa.gov'+"".join(link), ruta+variable_salida+'.nc')
 
 # In[]      extract variable from netcdf
 def manipular_nc(archivo,variable):
@@ -209,7 +209,15 @@ def main():
     #Pasamos las latitudes/longitudes del dataset a una reticula para graficar
     lons, lats = np.meshgrid(lon,lat)
     clevs = np.arange(-2.5e7,2.75e7,0.25e7)
-    cmap = copy.copy(plt.cm.get_cmap("RdBu")) 
+    #try:
+    #    cmap = copy.copy(plt.cm.get_cmap("RdBu_r"))
+    #except:
+    
+    import matplotlib
+    if int(matplotlib.__version__[2]) > 7:
+        cmap = plt.get_cmap('RdBu')
+    else:
+        cmap = copy.copy(plt.cm.get_cmap("RdBu"))
     
     ax.set_extent([0, 359, -88, 10], crs=crs_latlon)
     im=ax.contourf(lons, lats, psiaa[0, :, :], clevs, transform=crs_latlon, cmap=cmap, extend='both')
