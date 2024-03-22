@@ -15,6 +15,19 @@ enlace=./scripts/
 python $enlace"text.py"
 python $enlace"apec_download.py"
 
+echo "-----------------------------------------------------------"
+echo "-----------------------------------------------------------"
+echo "En caso de no funcionar la descarga tradicional para los" 
+echo "pronosticos de copernicus, ¿Desea usar SELENIUM en python? (si/no):"
+read respuesta
+
+# Compara la respuesta
+if [ "$respuesta" = "si" ]; then
+    use_selenium=true
+else
+    use_selenium=false
+fi
+
 anio=$(date -d "$date" +"%Y")
 mes1=$(date -d "$date -3 month" +"%m")
 anio1=$(date -d "$date -3 month" +"%Y")
@@ -308,7 +321,7 @@ wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for
 wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
 # TEST DESCARGA AUTOMATICA COPERNICUS
-python $enlace"test_download_copernicus_forecast.py" --mes "$cumes" --anio "$anio" --nxtanio "$nxtanio"
+python $enlace"test_download_copernicus_forecast.py" --mes "$cumes" --anio "$anio" --nxtanio "$nxtanio" --use_selenium "$use_selenium"
 
 #prono copernicus (Cambiar)
 #wget --no-cache -O Prono_Temp_copernicus.png https://charts.ecmwf.int/streaming/20231117-0930/22/ps2png-worker-commands-76898cbbf-xfdn2-6fe5cac1a363ec1525f54343b6cc9fd8-vtBICf.png
