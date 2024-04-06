@@ -94,7 +94,6 @@ def download(mes, anio, nxtanio, use_selenium):
     http = urllib3.PoolManager()
 
     for variable, var_name_pic in zip(['rain', '2mtm'], ['Precip', 'Temp']):
-        print('inicio iteracion')
         url1 = (f"https://charts.ecmwf.int/opencharts-api/v1/products/"
                 f"c3s_seasonal_spatial_mm_{variable}_3m/?"
                 f"valid_time={valid_time1}-01T00%3A00%3A00Z&"
@@ -116,7 +115,6 @@ def download(mes, anio, nxtanio, use_selenium):
             print('Descargando ' + nombre_figura_temp)
             os.system('wget --no-cache -O '+ nombre_figura_temp + enlace)
         except:
-
             if use_selenium:
                 try:
                     from selenium import webdriver
@@ -153,11 +151,13 @@ def main():
                         type=str, nargs=1)
     parser.add_argument('--use_selenium', dest='use_selenium',
                         metavar='nxtanio',
-                        type=bool, nargs=1)
+                        type=str, nargs=1)
 
     args = parser.parse_args()
 
-    download(args.mes[0], args.anio[0], args.nxtanio[0], args.use_selenium[0])
+    use_selenium = args.use_selenium[0].lower() == 'true'
+
+    download(args.mes[0], args.anio[0], args.nxtanio[0], use_selenium)
 
 if __name__ == '__main__':
     main()
