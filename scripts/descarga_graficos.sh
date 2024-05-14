@@ -15,18 +15,19 @@ enlace=./scripts/
 python $enlace"text.py"
 python $enlace"apec_download.py"
 
-echo "-----------------------------------------------------------"
-echo "-----------------------------------------------------------"
-echo "En caso de no funcionar la descarga tradicional para los" 
-echo "pronosticos de copernicus, ¿Desea usar SELENIUM en python? (si/no):"
-read respuesta
+#echo "-----------------------------------------------------------"
+#echo "-----------------------------------------------------------"
+#echo "En caso de no funcionar la descarga tradicional para los" 
+#echo "pronosticos de copernicus, ¿Desea usar SELENIUM en python? (si/no):"
+#read respuesta
 
 # Compara la respuesta
-if [ "$respuesta" = "si" ]; then
-    use_selenium=true
-else
-    use_selenium=false
-fi
+#if [ "$respuesta" = "si" ]; then
+#    use_selenium=true
+#else
+#    use_selenium=false
+#fi
+use_selenium = false
 
 anio=$(date -d "$date" +"%Y")
 mes1=$(date -d "$date -3 month" +"%m")
