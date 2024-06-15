@@ -5,28 +5,47 @@ rm ./*.jpg
 rm ./*.pdf
 rm ./*.png
 
-source ~/anaconda3/etc/profile.d/conda.sh
-conda activate py37
+# que conda hay?
+ANACONDA_DIR="$HOME/anaconda3"
+MINICONDA_DIR="$HOME/miniconda3"
+# anaconda o miniconda
+if [ -d "$ANACONDA_DIR" ]; then
+    source "$ANACONDA_DIR/etc/profile.d/conda.sh"
+    CONDA_FOUND=true
+elif [ -d "$MINICONDA_DIR" ]; then
+    source "$MINICONDA_DIR/etc/profile.d/conda.sh"
+    CONDA_FOUND=true
+else
+    echo "Ni Anaconda3 ni Miniconda3 encontrados. No se puede crear el entorno."
+    exit 1
+fi
+
+conda activate py_clima
+
+
 
 # Ruta a los scrips para correr en python
 # Hay que correr esto desde la carpeta raiz del repositorio, 
 enlace=./scripts/
 
 python $enlace"text.py"
+
+echo "-----------------------------------------------------------"
+echo "-----------------------------------------------------------"
+echo "En caso de no funcionar la descarga tradicional para los" 
+echo "pronosticos de copernicus, ¿Desea usar SELENIUM en python? (si/no):"
+read respuesta
+
+
 python $enlace"apec_download.py"
 
-#echo "-----------------------------------------------------------"
-#echo "-----------------------------------------------------------"
-#echo "En caso de no funcionar la descarga tradicional para los" 
-#echo "pronosticos de copernicus, ¿Desea usar SELENIUM en python? (si/no):"
-#read respuesta
 
 # Compara la respuesta
-#if [ "$respuesta" = "si" ]; then
-#    use_selenium=true
-#else
-#    use_selenium=false
-#fi
+if [ "$respuesta" = "si" ]; then
+    use_selenium=true
+else
+    use_selenium=false
+fi
 use_selenium = false
 
 anio=$(date -d "$date" +"%Y")
@@ -72,6 +91,7 @@ last_kday() {
 # Prono IOD 
 martes=$(last_kday tuesday)
 sabado=$(last_kday saturday)
+miercoles=$(last_kday wednesday)
 
 #Imagen SOI (fija)
 wget -O SOI.gif http://www.cpc.ncep.noaa.gov/products/CDB/Tropics/figt1.gif
@@ -262,10 +282,14 @@ wget -O MEI.png https://www.esrl.noaa.gov/psd/enso/mei/img/mei_lifecycle_current
 
 #Imagen Prono ENSO (fija)
 wget -O PronoENSO_Anterior.png https://iri.columbia.edu/wp-content/uploads/$anio3/$mes3/figure1.png
-wget -O PronoENSO.png https://iri.columbia.edu/wp-content/uploads/$anio/$cumes/figure1.png
+
+# A partir de Junio el modelo de link es este:
+#https://iri.columbia.edu/wp-content/uploads/2024/06/CPCoff_ENSOprobs_062024.png pero es el prono de mayo... 
+#wget -O PronoENSO.png https://iri.columbia.edu/wp-content/uploads/$anio/$cumes/CPCoff_ENSOprobs_$cumes$anio.png
+wget -O PronoENSO.png https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/figure07.gif
 
 #Imagen Prono ENSO APEC (fija)
-#wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Probability/Prob_ENSO_Probability.png
+wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Probability/Prob_ENSO_Probability.png
 
 #Imagen Pluma ENSO (Mes actual puede no estar según en qué fecha se haga la presentación)
 # VAN CAMBIANDO LOS LINK SIN MOTIVO!
@@ -283,11 +307,12 @@ python $enlace"prono_IOD_bom.py" --x "${sabado}"
 
 #wget --no-cache -U "Mozilla" -O PronoIOD.png http://www.bom.gov.au/climate/enso/wrap-up/archive/${anio}${cumes}${martes}.sstOutlooks_iod.png
 #wget --no-cache -U "Mozilla" -O PronoIOD_NextMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${martes}.iod_summary_2.png
+#wget --no-cache -U "Mozilla" -O PronoIOD_NextMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${miercoles}.iod_summary_2.png
 #wget --no-cache -U "Mozilla" -O PronoIOD_NextOtMon.png http://www.bom.gov.au/climate/model-summary/archive/${anio}${cumes}${martes}.iod_summary_3.png
 #wget -O PronoIOD_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Timeseries/sst_IOD.png
 
 
-#################### PROBANDO #####################
+##########################################################################
 
 mes_nmme=$(python $enlace"pronos_update.py" --x "nmme_month_ic")
 mes1_nmme=$(python $enlace"pronos_update.py" --x "nmme_month_1")
@@ -302,7 +327,7 @@ anio_f=$(python $enlace"pronos_update.py" --x "anio_f")
 anio_i_abrev=`expr $anio_i - 2000`
 anio_f_abrev=`expr $anio_f - 2000`
 
-###################################################
+###########################################################################
 #Imagen Prono Precip NMME (¡¡¡Cambiar!!!)---> probando=FIJA
 wget -O Prono_Precip_NMME.png http://www.cpc.ncep.noaa.gov/products/international/nmme/probabilistic_seasonal/samerica_nmme_prec_3catprb_${mes_nmme}IC_${mes1_nmme}${anio_i_nmme}-${mes3_nmme}${anio_f}.png
 
@@ -316,10 +341,10 @@ wget -O Prono_Precip_IRI.gif https://iri.columbia.edu/climate/forecast/net_asmt_
 wget -O Prono_Temp_IRI.gif https://iri.columbia.edu/climate/forecast/net_asmt_nmme/$anio/${mes_iri}${anio_i}/images/${season_iri_divar_en}${anio_f_abrev}_SAm_tmp.gif
 
 #Imagen Prono DIVAR (¡¡¡Cambiar!!!)---> probando=FIJA
-wget -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_prec_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
+wget --tries=1 -O Prono_Precip_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_prec_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
  
 #Imagen Prono DIVAR (¡¡¡Cambiar!!!)---> probando=FIJA
-wget -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
+wget --tries=1 -O Prono_Temp_DIVAR.png http://climar.cima.fcen.uba.ar/grafEstacional/for_tref_${season_iri_divar_en}_ic_${mes_divar}_${anio_i}_wsereg_mean_cor.png
 
 # TEST DESCARGA AUTOMATICA COPERNICUS
 python $enlace"test_download_copernicus_forecast.py" --mes "$cumes" --anio "$anio" --nxtanio "$nxtanio" --use_selenium "$use_selenium"

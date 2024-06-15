@@ -25,8 +25,8 @@ def download_with_selenium(url, nombre_figura):
         print('Se intentara la descarga a travez del navegador firefox')
     except:
         print('Selenium no instalada')
-        print('instalar con: ')
-        print('pip install selenium')
+        print('Ejecutar install_selenium.sh')
+        print('está en la carpeta "set_up"')
         return
 
     # Para funcionar con firefox instalado por defecto en linux a partir de snap
@@ -44,11 +44,11 @@ def download_with_selenium(url, nombre_figura):
         options = webdriver.FirefoxOptions()
         driver = webdriver.Firefox(options=options)
 
-        time.sleep(20)  # puede tardar en abrir firefox
+        time.sleep(10)  # puede tardar en abrir firefox
 
         driver.get(url)
 
-        time.sleep(10)  # esperando que cargue la pagina, normalmente tarda menos
+        time.sleep(5)  # esperando que cargue la pagina, normalmente tarda menos
 
         imagen = driver.find_element("xpath",
                                      "//img[contains(@src, 'charts.ecmwf')]")
@@ -62,6 +62,8 @@ def download_with_selenium(url, nombre_figura):
         if "Service /snap/bin/geckodriver unexpectedly exited." in str(e):
             print('# ------------------------------------------------------- #')
             print("geckodriver no instalado")
+            print("1. Comprobar la ejecución completa de install_selenium.sh")
+            print("Sino, probar instalar geckdriver a mano:")
             print('Descargar geckodriver desde el siguiente link:')
             print("https://github.com/mozilla/geckodriver/releases/download/"
                   "v0.34.0/geckodriver-v0.34.0-linux64.tar.gz")
@@ -123,7 +125,7 @@ def download(mes, anio, nxtanio, use_selenium):
                 except:
                     print('Selenium no instalado')
                     return
-
+                nombre_figura = f"{nombre_figura.split('.')[0]}_bySel.png"
                 download_with_selenium(url2, nombre_figura)
 
             else:
@@ -133,7 +135,7 @@ def download(mes, anio, nxtanio, use_selenium):
                 print(url2)
                 print('# ---------------------------- #')
 
-        time.sleep(10) # por si la descarga toma tiempo
+        time.sleep(3) # por si la descarga toma tiempo
 
 # ---------------------------------------------------------------------------- #
 # ---------------------------------------------------------------------------- #

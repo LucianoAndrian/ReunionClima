@@ -11,7 +11,6 @@ def Download(season, anio):
                      f"{season}/{anio}/Alert/ENSO_Alert.png")
     os.system('wget --no-cache -O enso_flechita_apec.png ' + link_flechita)
 
-
     link_prono_enso = (f'https://www.apcc21.org/apcc_images/MME_FIG/ENSO_OUT/'
                   f'{season}/{anio}/Probability/Prob_ENSO_Probability.png')
     os.system('wget --no-cache -O PronoENSO_APEC.png ' + link_prono_enso)
@@ -28,12 +27,9 @@ meses = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D',
 cumes = datetime.now().month
 anio = datetime.now().year
 
-try:
-    season = ''.join(meses[cumes:cumes+6])
-    Download(season, anio)
-except:
-    season = ''.join(meses[cumes-1:cumes-1 + 6])
-    Download(season, anio)
+season = ''.join(meses[cumes-1:cumes-1+6])
+Download(season, anio)
+
 
 # ---------------------------------------------------------------------------- #
 print('# ------------------------------------------------------------------- #')
