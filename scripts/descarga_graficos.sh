@@ -200,10 +200,10 @@ wget -O persis_AnomZ500_M3.gif https://www.cpc.ncep.noaa.gov/products/CDB/Extrat
 wget -O vorticeHS.gif https://www.cpc.ncep.noaa.gov/products/CDB/Extratropics/figs8.gif
 
 #anomalia mensual pp smn (fija)
-wget -O Precip_SMN_M3.gif https://estaticos.smn.gob.ar/hidro/imagenes/allu1m.gif
+wget --user-agent='Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' -O Precip_SMN_M3.gif https://estaticos.smn.gob.ar/hidro/imagenes/allu1m.gif
 
 #anomalia mensual temp smn (fija)
-wget -O Temp_SMN_M3.gif https://estaticos.smn.gob.ar/clima/imagenes/atmed1.gif 
+wget --user-agent='Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' -O Temp_SMN_M3.gif https://estaticos.smn.gob.ar/clima/imagenes/atmed1.gif 
 
 #Imagen Anomalía Z500 mensual (fija)
 python $enlace"anom_var_stereo.py" --dateinit "$anio1-$mes1-01" --dateend "$anio1-$mes1-$dfm1" --variable "Zg" --level "500mb" --latr "-20" --levcont "120" --levint "30"  
@@ -236,17 +236,17 @@ python $enlace"anom_var_stereo.py" --dateinit "$anio3-$mes3-01" --dateend "$anio
 mv Anomair_30mb_01${mes3}${anio3}_${dfm3}${mes3}${anio3}_-20.jpg T30_M3.jpg
 
 #anomalia mensual Temp smn (fija)
-wget -O Temp_SMN_M3.gif https://estaticos.smn.gob.ar/clima/imagenes/atmed1.gif
+wget --user-agent='Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' -O Temp_SMN_M3.gif https://estaticos.smn.gob.ar/clima/imagenes/atmed1.gif
 
 #anomalia geop 1000 hPa (fija)
 python $enlace"anom_var.py" --dateinit "$anio3-$mes3-01" --dateend "$anio3-$mes3-$dfm3" --variable "Zg" --level "1000mb" --latmin "-80" --latmax "0" --lonmin "0" --lonmax "359" --levcont "90" --levint "20" 
 mv Anomhgt_1000mb_01${mes3}${anio3}_${dfm3}${mes3}${anio3}_-80_0_0_359.jpg zg1000_M3.jpg 
 
 #anomalia trimestral smn (fija)
-wget -O Precip_SMN_Trim.gif https://estaticos.smn.gob.ar/hidro/imagenes/allu3m.gif
+wget --user-agent='Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' -O Precip_SMN_Trim.gif https://estaticos.smn.gob.ar/hidro/imagenes/allu3m.gif
 
 #anomalia trimestral smn (fija)
-wget -O Temp_SMN_Trim.gif https://estaticos.smn.gob.ar/clima/imagenes/atmed3.gif
+wget --user-agent='Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' -O Temp_SMN_Trim.gif https://estaticos.smn.gob.ar/clima/imagenes/atmed3.gif
 
 #anomalia mensual SSA (fija)
 wget --no-check-certificate -O Temp_SSA_M3.gif https://www.crc-sas.org/es/clima/imagenes/Ratmed1.gif
@@ -287,9 +287,6 @@ wget -O PronoENSO_Anterior.png https://iri.columbia.edu/wp-content/uploads/$anio
 #https://iri.columbia.edu/wp-content/uploads/2024/06/CPCoff_ENSOprobs_062024.png pero es el prono de mayo... 
 #wget -O PronoENSO.png https://iri.columbia.edu/wp-content/uploads/$anio/$cumes/CPCoff_ENSOprobs_$cumes$anio.png
 wget -O PronoENSO.png https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/figure07.gif
-
-#Imagen Prono ENSO APEC (fija)
-wget -O PronoENSO_APEC.png https://www.apcc21.org/apcc_images/NEW/GLOBE/ENSO/$anio/$nxtmes/Probability/Prob_ENSO_Probability.png
 
 #Imagen Pluma ENSO (Mes actual puede no estar según en qué fecha se haga la presentación)
 # VAN CAMBIANDO LOS LINK SIN MOTIVO!
