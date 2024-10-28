@@ -3,8 +3,8 @@ from datetime import datetime
 
 # Functions ############################################################################################################
 def MonthsName(cumonth, month, year):
-    months_name = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-                   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    months_name = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                   'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 
     if (cumonth - month) < 0:
         year -= 1
